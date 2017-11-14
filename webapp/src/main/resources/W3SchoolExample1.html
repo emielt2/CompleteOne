@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+
+<div ng-app="">
+    <p>Name : <input type="text" ng-model="name"></p>
+    <h1>Hello {{name}}</h1>
+    <h1>{{1+1}}</h1>
+
+
+    <h1>{{1+1}}</h1>
+</div>
+<div ng-app="">
+    <p>Name : <input type="text" ng-model="name"></p>
+    <h1>Hello {{name}}</h1>
+    <h1>{{1+1}}</h1>
+
+
+    <h1>{{1+1}}</h1>
+</div>
+
+<div class="container ng-cloak">
+    <div class="esuite-footer">
+        <p class="pull-right">
+            <i class="glyphicon glyphicon-arrow-up"></i><a href="" ng-click="emc.scrollTop()">{{ 'naarBoven' | translate }}</a>
+        </p>
+
+        <p class="disclaimer">
+            &#169; Atos Nederland B.V.
+            <span class="versie" ng-if="emc.templateData.projectStage == 'Development'">${build_fingerprint}</span>
+            <span class="versie" ng-if="emc.templateData.projectStage == 'Production'">${build_versie_prod}</span>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

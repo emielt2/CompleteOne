@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html ng-controller="esuiteMpController as emc">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="shortcut icon" href="/mp/css/icons/favicon.ico"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <base href="/mp/"/>
+    <script type="text/javascript">var _fingerPrint = "${build_fingerprint}";</script>
+    <link rel="stylesheet" href="/mp/css/esuite.css?v=${build_fingerprint}"/>
+    <link rel="stylesheet" href="/mp/css/bootstrap.min.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/css/general.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/css/angular-growl.css?v=${build_fingerprint}"/>
+    <link rel="stylesheet" href="/mp/css/select.min.css?v=${build_fingerprint}"/>
+    <link rel="stylesheet" href="/mp/css/select2.css?v=${build_fingerprint}"/>
+
+    <link type="text/css" rel="stylesheet" href="/mp/less-compiled-css/general.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/less-compiled-css/modal.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/less-compiled-css/zoeken.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/less-compiled-css/werklijsten.css?v=${build_fingerprint}"/>
+    <link type="text/css" rel="stylesheet" href="/mp/less-compiled-css/esuite-angular-bootstrap.css?v=${build_fingerprint}"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <script type="text/javascript" src="/mp/javascript/jquery.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/esuiteAngularUtils.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ui-router.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-sanitize.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/select.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ui-bootstrap-tpls.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angucomplete-alt.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-translate.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-translate-partial.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-growl.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ngStorage.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/smart-table.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-locales.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/smart-table-plugins.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ng-map.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ng-file-upload.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/ng-caps-lock.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/angular/angular-drag-and-drop-lists.min.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/javascript/require.js?v=${build_fingerprint}"></script>
+    <script type="text/javascript" src="/mp/components/main_mp.js?v=${build_fingerprint}"></script>
+
+    <!-- Tijdelijke fix voor callbacks vanuit child frames ESUITE-7446 -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).on("message", App.Service.redirectToURLMessage);
+        });
+
+        var App = {};
+        App.Service = {};
+
+        App.Service.redirectToURLMessage = function (jqueryEvent) {
+            console.log("redirect event received");
+            var event = jqueryEvent.originalEvent;
+            var data = JSON.parse(event.data);
+            if (data.action === 'redirectToURL') {
+                window.location = data.relativeURL;
+            }
+        };
+    </script>
+    <!-- Bij zeer grote pagina's duurt het laden dermate lang dat de CSS ng-cloak te laat bekend is, en je dus angular code op het scherm ziet -->
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+    <title ng-bind="emc.page.title()"></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+<body>
+<span id="globalMessagePanel" class="growl" growl="growl"></span>
+<div class="esuite-navbar">
+    <div class="esuite-navbar-inner">
+        <div class="esuite-navbar-container container clearfix">
+            <p class="ng-cloak pull-left esuite-navbar-brand" title="Home" tabindex="-1">
+                <img ng-src="{{emc.page.logo()}}" width="200" height="80" alt="Logo" class="logo"/>
+            </p>
+
+            <div class="ng-cloak pull-left">
+               <span class="esuite-tagline">{{ 'template.esuite' | translate }}
+                   <small>{{'template.mp' | translate}} {{emc.templateData.algemeenOmgevingType}}</small>
+               </span>
+                <ul class="nav nav-pills">
+                    <li ng-if="emc.templateData.tonenTabKCCToegestaan" ui-sref-active="actief">
+                        <a ui-sref="kcc" id="kcc" accesskey="k" class="underline-first">
+                            {{'template.kcc' | translate}}
+                        </a>
+                    </li>
+                    <li ng-if="emc.templateData.tonenTabWerklijstenToegestaan" ui-sref-active="{actief: 'werklijst.*'}">
+                        <a ui-state="emc.werklijstBaseUrl"
+                           ui-state-params="emc.werklijstUrlParams"
+                           id="werklijst" accesskey="w" class="underline-first">
+                            {{'werklijsten' | translate}}
+                        </a>
+                    </li>
+                    <li ng-if="emc.templateData.tonenTabOverzichtenToegestaan" ui-sref-active="actief">
+                        <a ui-sref="overzichten" id="overzichten" accesskey="o" class="underline-first">
+                            {{'template.overzichten' | translate}}
+                        </a>
+                    </li>
+                    <li ng-if="emc.templateData.tonenTabBeheerToegestaan" ng-class="{'actief':emc.page.navPill()=='beheer'}">
+                        <a href="/beheer" id="beheer" accesskey="b" class="underline-first">
+                            {{'template.beheer' | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ng-cloak pull-right">
+                <div class="clearfix">
+                    <ul class="esuite-authbar float pull-right">
+                        <li>
+                            <div class="rf-p rf-p-noPadding" id="signaleringResultatenNavigatieBalk">
+                                <div class="rf-p-b " id="signaleringResultatenNavigatieBalk_body">
+                                    <a ui-sref="werklijst.lijst({category:'mijn', page:'signaleringen'})"
+                                       id="signaleringen"
+                                       accesskey="s"
+                                       class="underline-first">
+                                        <i class="glyphicon glyphicon-inbox"></i>{{'signaleringen' | translate}}<span class="gray"> (
+                                        {{emc.aantalSignaleringen}} )</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="last dropdown">
+                            <medewerker-menu volledige-naam="{{ emc.templateData.volledigeNaam }}"></medewerker-menu>
+                        </li>
+                    </ul>
+                </div>
+                <my-lex rest-my-lex="emc.templateData.myLex"></my-lex>
+                <global-zoeken-venster></global-zoeken-venster>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- id word gebruikt voor scrollen -->
+<div ui-view id="esuite-content-view" class="esuite-navbar-view-spacer"></div>
+
+<div class="container ng-cloak">
+    <div class="esuite-footer">
+        <p class="pull-right">
+            <i class="glyphicon glyphicon-arrow-up"></i><a href="" ng-click="emc.scrollTop()">{{ 'naarBoven' | translate }}</a>
+        </p>
+
+        <p class="disclaimer">
+            &#169; Atos Nederland B.V.
+            <span class="versie" ng-if="emc.templateData.projectStage == 'Development'">${build_fingerprint}</span>
+            <span class="versie" ng-if="emc.templateData.projectStage == 'Production'">${build_versie_prod}</span>
+        </p>
+    </div>
+</div>
+
+<h1>{{1+1}}</h1>
+</body>
+</html>
