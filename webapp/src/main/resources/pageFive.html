@@ -9,18 +9,37 @@
     <script type="application/hal+json" src="PageFiveController.js"></script>
 
 
+    <style>
+h1 {
+    color: blue;
+    font-family: verdana;
+    font-size: 300%;
+}
+p  {
+    color: red;
+    font-family: courier;
+    font-size: 160%;
+}
+h2 {
+    color: purple;
+    allignment: right;
+}
+
+
+    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body >
+<body>
 <div data-ng-controller="pageFiveController as pfc">
 
 
     <!--<div  ng-controller="myController as mc">-->
     <div>
-        <h1>t {{totalTodos}}</h1>
+        <h2>t {{totalTodos}}</h2>
         <div>{{myString}}</div>
         <h1>1+1 = {{1+1}}</h1>
         <!--<button id="button1" ng-click="mc.callFunctionX()" >-->
-        <button id="button1" data-ng-click="callFunctionXfive()">
+        <button id="button1" ng-mouseover="callFunctionXfive()">
             Klikkie
         </button>
         <!--<label>{{pfc.myFunction(1,2)}}</label>-->
@@ -34,19 +53,19 @@
             document.getElementById("X").setAttribute("visibility","false");
             document.getElementById("X").setAttribute("id","X");
 
+
+
         </script>
 
 
     </div>
     <ul>
         <li ng-repeat="x in names">
-            {{ x.name + ', ' + x.country }}
+            {{ x.name + ', ' + x.country+ ', ' + x.city }}
         </li>
     </ul>
+    <button ng-mouseover = "callFunctionXfive()">xx()</button>
 
-</div>
-
-<div>
     <h2>JavaScript Functions</h2>
 
     <p>This example calls a function which performs a calculation, and returns the result:</p>
@@ -58,6 +77,8 @@
             return p1 * p2;
         }
         document.getElementById("demo").innerHTML = myFunction(4, 3);
+
+
     </script>
 
     <script>
@@ -74,7 +95,41 @@
             return "<i x=x>ZZ</i>";
         }
         document.getElementById("demo").outerHTML = giveOuter();
+
+
     </script>
+    <h3 id="testcss">TESTCSS</h3>
+    <script>
+        function giveCSS() {
+            return "font-family: Courier; background-color: purple"
+
+        }
+
+        <!--document.getElementById("demo").style = giveCSS();-->
+        var elem = document.getElementById("testcss");
+        elem.style.width = "500px";
+        elem.style.color = "red";
+        elem.setAttribute("style","font-family: Courier; background-color: red");
+        <!--elem.setAttribute("style",giveCSSJS());-->
+        <!--elem.style = giveCSSJS();-->
+        <!--elem.innerHTML = giveCSSJS();-->
+        <!--h3.style = "color: red"-->
+
+
+    </script>
+    <button ng-click = "funcGiveA()">xxx()</button>
+    <h2 color=giveCSSJS()>This is H2</h2>
+    <div ng-init="quantity=2;cost=5">
+
+        <p>Total in dollar: {{ quantity * cost }}</p>
+
+    </div>
+    <div ng-init="firstName='John';lastName='Doe'">
+
+        <p>The name is <span ng-bind="firstName + ' ' + funcGiveA()"></span></p>
+        <div>{{['David','Pam','Sara'][0]}}</div>
+
+    </div>
 </div>
 </body>
 </html>

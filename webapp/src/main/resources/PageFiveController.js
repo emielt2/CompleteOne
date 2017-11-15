@@ -18,15 +18,16 @@ myApp.controller('pageFiveController', function ($scope) {
 
     }
     $scope.names = [
-        {name:'Jani',country:'Norway'},
-        {name:'Hege',country:'Sweden'},
-        {name:'Kai',country:'Denmark'},
-        {name:newstring(),country:'Denmark'}
+        {name:'Jani',country:'Norway',city:'Duckstad1'},
+        {name:'Hege',country:'Sweden',city:'Duckstad2'},
+        {name:'Kai',country:'Denmark',city:'Duckstad3'},
+        {name:newstring(),country:'Denmark',city:'Duckstad4'}
     ];
 
     //callFunctionX();
     $scope.callFunctionXfive = function () {
         // logError();
+
         console.info("aaaa");
         console.log("asdasdasd");
         x=6;
@@ -37,15 +38,26 @@ myApp.controller('pageFiveController', function ($scope) {
        // alert("This is alert "+x + " "+this.x);
         return "XXXX";
     }
-    funcGiveA = function () {
+    $scope.funcGiveA = function () {
         // logError();
-        return "A";
+//        alert("This is alert in funcGiveA"+x + " "+this.x);
+        console.info("ConsoleLogAAAAAAA");
+        alert("This is alert in funcGiveA");
+        return "AAAAAAAA";
     }
     function myFunction(p1, p2) {
         return p1 * p2;
     }
     //callFunctionXfive();
     x=2;
+
+    $scope.giveCSSJS = function () {
+        return "font-family: Courier; background-color: black"
+    }
+
+    $scope.giveRedColor = function (){
+    return "color: orange";
+    }
 });
 
 
