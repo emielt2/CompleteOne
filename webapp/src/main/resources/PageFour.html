@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PageFour</title>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script>src = "angular-translate.min.js"</script>
+
+    <script type="text/javascript" src="ControllerFour.js"></script>
+
+
+</head>
+<body>
+<!--<div ng-app="appname" ng-controller="MyControlerFour as mcf">-->
+<div ng-app="appname" ng-controller="myControlerFour">
+    <h1 ng-show="myBoolean">{{totalTodos}}</h1>
+    <button id="openBedrijfToevoegenLink" ng-click="mcf.bedrijfAanmakenBewerken()">KLIK</button>
+</div>
+</body>
+</html>

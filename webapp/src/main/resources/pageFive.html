@@ -1,0 +1,80 @@
+<!doctype HTML>
+<html data-ng-app="appmodulenamefive">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+    <script>src = "angular-translate.min.js"</script>
+
+    <script type="text/javascript" src="PageFiveController.js"></script>
+    <script type="application/hal+json" src="PageFiveController.js"></script>
+
+
+</head>
+<body >
+<div data-ng-controller="pageFiveController as pfc">
+
+
+    <!--<div  ng-controller="myController as mc">-->
+    <div>
+        <h1>t {{totalTodos}}</h1>
+        <div>{{myString}}</div>
+        <h1>1+1 = {{1+1}}</h1>
+        <!--<button id="button1" ng-click="mc.callFunctionX()" >-->
+        <button id="button1" data-ng-click="callFunctionXfive()">
+            Klikkie
+        </button>
+        <!--<label>{{pfc.myFunction(1,2)}}</label>-->
+        <p id="X" visibility="true">X</p>
+        <script>
+            function myFunction(p1, p2) {
+                return p1 * p2;
+            }
+            document.getElementById("X").setAttribute("innerHTML","red");// myFunction(4, 3)
+            document.getElementById("X").innerHTML="aa";
+            document.getElementById("X").setAttribute("visibility","false");
+            document.getElementById("X").setAttribute("id","X");
+
+        </script>
+
+
+    </div>
+    <ul>
+        <li ng-repeat="x in names">
+            {{ x.name + ', ' + x.country }}
+        </li>
+    </ul>
+
+</div>
+
+<div>
+    <h2>JavaScript Functions</h2>
+
+    <p>This example calls a function which performs a calculation, and returns the result:</p>
+
+    <p id="demo"></p>
+
+    <script>
+        function myFunction(p1, p2) {
+            return p1 * p2;
+        }
+        document.getElementById("demo").innerHTML = myFunction(4, 3);
+    </script>
+
+    <script>
+        function giveJ() {
+            return {
+                "employees":[
+                    {"firstName":"John", "lastName":"Doe"},
+                    {"firstName":"Anna", "lastName":"Smith"},
+                    {"firstName":"Peter", "lastName":"Jones"}
+                ]
+            }
+        }
+        function giveOuter() {
+            return "<i x=x>ZZ</i>";
+        }
+        document.getElementById("demo").outerHTML = giveOuter();
+    </script>
+</div>
+</body>
+</html>

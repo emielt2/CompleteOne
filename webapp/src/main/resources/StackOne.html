@@ -1,0 +1,29 @@
+<html>
+<head></head>
+<body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<div id="appElementA">
+    <h1>{{1+1}}</h1>
+    <div class="container">
+        <h1 id="pageTitle">{{'kcc.title' | translate}}</h1>
+    </div>
+</div>
+<div id="appElementB">
+    <h1>{{1+1}}</h1>
+</div>
+<script>
+    var app = angular.module('A', [])
+        .controller('AB', function($scope) {
+            $scope.greeting = 'Welcome!';
+        });
+    var appElementA = document.getElementById('divAppA');
+    angular.bootstrap(appElementA, ['A']);
+    var bApp = angular.module('B', [])
+        .controller('BB', function($scope) {
+            $scope.greeting = 'Welcome to B app!';
+        });
+    var appElementB = document.getElementById('divAppB');
+    angular.bootstrap(appElementB, ['B']);
+</script>
+</body>
+</html>

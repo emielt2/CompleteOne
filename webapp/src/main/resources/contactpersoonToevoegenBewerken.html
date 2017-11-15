@@ -1,0 +1,127 @@
+<modal-header ng-show="!cptbc.bewerken" titel="contactpersoon.header.toevoegen"
+              titel2={{cptbc.bedrijf.bedrijfsnaam}}
+              cancel=cptbc.cancel></modal-header>
+<modal-header ng-show="cptbc.bewerken" titel="contactpersoon.header.bewerken"
+              titel2="{{cptbc.persoonnaam}}"
+              cancel=cptbc.cancel></modal-header>
+<div class="modal-body angular-css">
+    <div class="modal-subheader first">
+        <h4>
+            {{ 'contactpersoon.gegevens' | translate }}
+            <span class="verplicht">{{ 'verplichteVelden' | translate }}</span>
+        </h4>
+    </div>
+    <ng-form name="cptbc.contactpersoonForm">
+        <table class="table-form valign-top">
+            <tbody>
+            <tr>
+                <td class="tp-label"><label for="naam">{{"naam" | translate}}:<span class="required">*</span></label></td>
+                <td class="tp-field"><input id="naam"
+                                            name="naam"
+                                            type="text"
+                                            ng-model="cptbc.contactpersoon.naam"
+                                            ng-required="true"
+                                            class="width-280"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tp-label"><label for="functie">{{"contactpersoon.functie" | translate}}:</label></td>
+                <td class="tp-field"><input id="functie"
+                                            name="functie"
+                                            type="text"
+                                            ng-model="cptbc.contactpersoon.functie"
+                                            class="width-280"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="tp-label"><label for="geslachtMan">{{"geslacht" | translate}}:<span class="required">*</span></label></td>
+                <td class="tp-field">
+                    <input id="geslachtMan"
+                           name="geslachtMan"
+                           type="radio"
+                           ng-model="cptbc.contactpersoon.geslacht"
+                           ng-required="!cptbc.contactpersoon.geslacht"
+                           value="MAN"
+                           maxlength="20"/>
+                    <label for="geslachtMan">{{ 'geslacht.man' | translate}}</label>
+                    <input id="geslachtVrouw"
+                           name="geslachtVrouw"
+                           type="radio"
+                           ng-model="cptbc.contactpersoon.geslacht"
+                           ng-required="!cptbc.contactpersoon.geslacht"
+                           value="VROUW"
+                           maxlength="20"/>
+                    <label for="geslachtVrouw">{{ 'geslacht.vrouw' | translate }}</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="ng-msg">{{ 'MXXXX_30' | translate }}</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span ng-show="cptbc.error.telefoonnummer" class="ng-msg">{{"M0077" | translate}}</span></td>
+            </tr>
+            <tr>
+                <td class="tp-label"><label for="telefoonnummer">{{"telefoonnummer" | translate}}:</label></td>
+                <td class="tp-field"><input id="telefoonnummer"
+                                            name="telefoonnummer"
+                                            type="text"
+                                            ng-pattern="cptbc.TELEFOON_REGEXP"
+                                            ng-model="cptbc.contactpersoon.telefoonnummer"
+                                            ng-required="!cptbc.contactpersoon.faxnummer && !cptbc.contactpersoon.emailadres"
+                                            ng-blur="cptbc.onBlur()"
+                                            class="width-280"
+                                            maxlength="20"/>
+                    <span class="gray m10">{{"telefoonnummer.defaultLabel" | translate}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span ng-show="cptbc.error.faxnummer" class="ng-msg">{{"MXXXX_20" | translate}}</span></td>
+            </tr>
+            <tr>
+                <td class="tp-label"><label for="faxnummer">{{"faxnummer" | translate}}:</label></td>
+                <td class="tp-field">
+                    <input id="faxnummer"
+                           name="faxnummer"
+                           type="text"
+                           ng-pattern="cptbc.TELEFOON_REGEXP"
+                           ng-model="cptbc.contactpersoon.faxnummer"
+                           ng-required="!cptbc.contactpersoon.emailadres && !cptbc.contactpersoon.telefoonnummer"
+                           ng-blur="cptbc.onBlur()"
+                           class="width-280"
+                           maxlength="20"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span ng-show="cptbc.error.emailadres" class="ng-msg">{{"M0056" | translate}}</span></td>
+            </tr>
+            <tr>
+                <td class="tp-label"><label for="emailadres">{{"emailadres" | translate}}:</label></td>
+                <td class="tp-field"><input id="emailadres"
+                                            name="emailadres"
+                                            type="text"
+                                            ng-pattern="cptbc.EMAIL_REGEXP"
+                                            ng-model="cptbc.contactpersoon.emailadres"
+                                            ng-required="!cptbc.contactpersoon.telefoonnummer && !cptbc.contactpersoon.faxnummer"
+                                            ng-blur="cptbc.onBlur()"
+                                            class="width-280"
+                                            maxlength="128"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </ng-form>
+
+</div>
+<div class="modal-footer">
+    <button ng-disabled="cptbc.contactpersoonForm.$invalid" class="btn btn-primary" ng-click="cptbc.ok()">{{"button.opslaan" | translate}}</button>
+    <button class="btn btn-default" ng-click="cptbc.cancel()">{{"button.annuleren" | translate}}</button>
+</div>
